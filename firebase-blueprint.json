@@ -1,0 +1,224 @@
+{
+  "entities": {
+    "User": {
+      "fields": {
+        "id": "string",
+        "phone": "string",
+        "email": "string?",
+        "fullName": "string?",
+        "role": "string",
+        "isActive": "boolean",
+        "createdAt": "string",
+        "updatedAt": "string"
+      }
+    },
+    "Shop": {
+      "fields": {
+        "id": "string",
+        "ownerId": "string",
+        "name": "string",
+        "stallType": "string",
+        "tagline": "string?",
+        "description": "string?",
+        "logoUrl": "string?",
+        "coverImageUrl": "string?",
+        "phone": "string?",
+        "address": "string",
+        "city": "string?",
+        "state": "string?",
+        "pincode": "string?",
+        "upiId": "string?",
+        "openingTime": "string?",
+        "closingTime": "string?",
+        "isOpen": "boolean",
+        "isActive": "boolean",
+        "createdAt": "string",
+        "updatedAt": "string"
+      }
+    },
+    "Category": {
+      "fields": {
+        "id": "string",
+        "shopId": "string",
+        "name": "string",
+        "displayOrder": "number",
+        "isActive": "boolean",
+        "createdAt": "string"
+      }
+    },
+    "MenuItem": {
+      "fields": {
+        "id": "string",
+        "shopId": "string",
+        "categoryId": "string?",
+        "name": "string",
+        "description": "string?",
+        "price": "number",
+        "imageUrl": "string?",
+        "isVeg": "boolean",
+        "isAvailable": "boolean",
+        "isActive": "boolean",
+        "displayOrder": "number",
+        "createdAt": "string",
+        "updatedAt": "string"
+      }
+    },
+    "Order": {
+      "fields": {
+        "id": "string",
+        "shopId": "string",
+        "customerId": "string?",
+        "tokenNumber": "string",
+        "tokenDate": "string",
+        "orderType": "string",
+        "tableNumber": "string?",
+        "status": "string",
+        "totalAmount": "number",
+        "paymentMode": "string",
+        "paymentStatus": "string",
+        "customerName": "string?",
+        "customerPhone": "string?",
+        "customerNotes": "string?",
+        "cancellationReason": "string?",
+        "items": "array",
+        "createdAt": "string",
+        "acceptedAt": "string?",
+        "preparingAt": "string?",
+        "readyAt": "string?",
+        "completedAt": "string?",
+        "cancelledAt": "string?",
+        "updatedAt": "string"
+      }
+    },
+    "OrderItem": {
+      "fields": {
+        "id": "string",
+        "orderId": "string",
+        "itemId": "string?",
+        "itemName": "string",
+        "itemPrice": "number",
+        "quantity": "number",
+        "subtotal": "number",
+        "createdAt": "string"
+      }
+    },
+    "Payment": {
+      "fields": {
+        "id": "string",
+        "orderId": "string",
+        "paymentMode": "string",
+        "paymentStatus": "string",
+        "amount": "number",
+        "transactionId": "string?",
+        "provider": "string?",
+        "paidAt": "string?",
+        "createdAt": "string",
+        "updatedAt": "string"
+      }
+    },
+    "OrderStatusHistory": {
+      "fields": {
+        "id": "string",
+        "orderId": "string",
+        "oldStatus": "string?",
+        "newStatus": "string",
+        "changedBy": "string?",
+        "note": "string?",
+        "createdAt": "string"
+      }
+    },
+    "FavoriteShop": {
+      "fields": {
+        "id": "string",
+        "userId": "string",
+        "shopId": "string",
+        "createdAt": "string"
+      }
+    },
+    "ShopTokenCounter": {
+      "fields": {
+        "id": "string",
+        "shopId": "string",
+        "tokenDate": "string",
+        "lastToken": "number"
+      }
+    },
+    "Notification": {
+      "fields": {
+        "id": "string",
+        "shopId": "string",
+        "userId": "string?",
+        "orderId": "string?",
+        "title": "string",
+        "message": "string",
+        "type": "string",
+        "isRead": "boolean",
+        "createdAt": "string"
+      }
+    },
+    "AiActionLog": {
+      "fields": {
+        "id": "string",
+        "shopId": "string",
+        "userId": "string?",
+        "actionType": "string",
+        "commandText": "string?",
+        "toolName": "string?",
+        "toolArguments": "object?",
+        "actionStatus": "string",
+        "result": "object?",
+        "createdAt": "string"
+      }
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/shops/{shopId}": {
+      "schema": "Shop",
+      "description": "Food stall & canteen profiles"
+    },
+    "/categories/{categoryId}": {
+      "schema": "Category",
+      "description": "Shop menu categories"
+    },
+    "/menu_items/{itemId}": {
+      "schema": "MenuItem",
+      "description": "Individual food menu items"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Counter orders with token numbers and items snapshot"
+    },
+    "/order_items/{orderItemId}": {
+      "schema": "OrderItem",
+      "description": "Historical snapshot of individual order line items"
+    },
+    "/payments/{paymentId}": {
+      "schema": "Payment",
+      "description": "Transaction and payment reconciliation records"
+    },
+    "/order_status_history/{historyId}": {
+      "schema": "OrderStatusHistory",
+      "description": "Audit trail for chronological order transitions"
+    },
+    "/favorite_shops/{favId}": {
+      "schema": "FavoriteShop",
+      "description": "Customer saved favorite stalls"
+    },
+    "/shop_token_counters/{counterId}": {
+      "schema": "ShopTokenCounter",
+      "description": "Daily sequential token numbers per shop"
+    },
+    "/notifications/{notificationId}": {
+      "schema": "Notification",
+      "description": "Real-time notifications for stall and customer"
+    },
+    "/ai_action_logs/{logId}": {
+      "schema": "AiActionLog",
+      "description": "Audit trail for AI voice & assistant commands"
+    }
+  }
+}

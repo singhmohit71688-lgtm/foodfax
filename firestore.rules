@@ -1,0 +1,95 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function for non-empty string IDs
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128;
+    }
+
+    // Users
+    match /users/{userId} {
+      allow read: if isValidId(userId);
+      allow write: if isValidId(userId);
+    }
+
+    // Shops
+    match /shops/{shopId} {
+      allow read: if isValidId(shopId);
+      allow write: if isValidId(shopId);
+    }
+
+    // Categories
+    match /categories/{categoryId} {
+      allow read: if isValidId(categoryId);
+      allow write: if isValidId(categoryId);
+    }
+
+    // Menu Items
+    match /menu_items/{itemId} {
+      allow read: if isValidId(itemId);
+      allow write: if isValidId(itemId);
+    }
+
+    // Orders (Customer QR placement & Stall Owner Live Status updates)
+    match /orders/{orderId} {
+      allow read: if isValidId(orderId);
+      allow create: if isValidId(orderId);
+      allow update: if isValidId(orderId);
+      allow delete: if false; // Orders are never deleted
+    }
+
+    // Order Items (Historical Snapshot)
+    match /order_items/{orderItemId} {
+      allow read: if isValidId(orderItemId);
+      allow create: if isValidId(orderItemId);
+      allow update: if isValidId(orderItemId);
+      allow delete: if false;
+    }
+
+    // Payments
+    match /payments/{paymentId} {
+      allow read: if isValidId(paymentId);
+      allow create: if isValidId(paymentId);
+      allow update: if isValidId(paymentId);
+      allow delete: if false;
+    }
+
+    // Order Status History (Audit Trail)
+    match /order_status_history/{historyId} {
+      allow read: if isValidId(historyId);
+      allow create: if isValidId(historyId);
+      allow update, delete: if false;
+    }
+
+    // Favorite Shops
+    match /favorite_shops/{favId} {
+      allow read: if isValidId(favId);
+      allow write: if isValidId(favId);
+    }
+
+    // Shop Token Counters (Daily transactional counter)
+    match /shop_token_counters/{counterId} {
+      allow read: if isValidId(counterId);
+      allow write: if isValidId(counterId);
+    }
+
+    // Notifications
+    match /notifications/{notifId} {
+      allow read: if isValidId(notifId);
+      allow write: if isValidId(notifId);
+    }
+
+    // AI Action Logs
+    match /ai_action_logs/{logId} {
+      allow read: if isValidId(logId);
+      allow create: if isValidId(logId);
+      allow update, delete: if false;
+    }
+
+    // Connection test document
+    match /_connection_test/{docId} {
+      allow read, write: if true;
+    }
+  }
+}
