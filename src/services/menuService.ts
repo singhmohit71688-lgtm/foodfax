@@ -205,6 +205,21 @@ export const menuService = {
     return this.updateItem(itemId, { isAvailable });
   },
 
+  async toggleAvailability(itemId: string, isAvailable: boolean): Promise<MenuItem | null> {
+    return this.updateItemAvailability(itemId, isAvailable);
+  },
+
+  async searchMenuItems(query: string): Promise<MenuItem[]> {
+    await new Promise((r) => setTimeout(r, 40));
+    const items = this.getStoredItems();
+    if (!query.trim()) return items;
+    const q = query.toLowerCase();
+    return items.filter((item) => 
+      item.name.toLowerCase().includes(q) || 
+      (item.description && item.description.toLowerCase().includes(q))
+    );
+  },
+
   async deleteItem(itemId: string): Promise<boolean> {
     await new Promise((r) => setTimeout(r, 50));
     const items = this.getStoredItems();

@@ -1,6 +1,6 @@
 {
-  "name": "",
-  "description": "",
+  "name": "FoodFlow - Street Food & Canteen Token System",
+  "description": "Digital token queue and counter ordering system for food stalls, canteens, and thelas with real-time order tracking, rush mode, and accessible audio chimes.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -240,6 +240,11 @@ export const shopService = {
     return { shops: matchedShops, items: matchedItems };
   },
 
+  async searchShops(query: string, isRealUser?: boolean): Promise<Shop[]> {
+    const result = await this.searchShopsAndItems(query, isRealUser);
+    return result.shops;
+  },
+
   async getCategories(): Promise<ShopCategory[]> {
     return MOCK_CATEGORIES;
   },
